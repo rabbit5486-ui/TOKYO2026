@@ -1,163 +1,175 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 東京滑雪棒球趣</title>
-    <link rel="manifest" href="manifest.json">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2026東京滑雪🏂棒球⚾️手冊</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #F8F9FA; color: #333; }
-        .tab-active { border-bottom: 3px solid #1a365d; color: #1a365d; font-weight: bold; }
-        .card { background: white; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
-        .tag { @apply px-2 py-0.5 rounded text-xs font-bold inline-block mr-2; }
-        .tag-trans { background: #ebf8ff; color: #2b6cb0; }
-        .tag-game { background: #fff5f5; color: #c53030; }
-        .tag-food { background: #f0fff4; color: #2f855a; }
-        .time { @apply text-gray-500 font-mono text-sm min-w-[50px] inline-block; }
+        :root {
+            --primary: #2c3e50;
+            --accent: #e67e22;
+            --bg: #f4f7f6;
+            --white: #ffffff;
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); margin: 0; padding-bottom: 70px; }
+        .header { background: var(--primary); color: var(--white); padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .tab-content { display: none; padding: 15px; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* 行程卡片 */
+        .card { background: var(--white); border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card h3 { margin-top: 0; color: var(--primary); border-left: 4px solid var(--accent); padding-left: 10px; }
+        .time-item { display: flex; align-items: flex-start; margin: 10px 0; font-size: 0.95em; }
+        .time-label { background: #eee; padding: 2px 8px; border-radius: 4px; margin-right: 10px; font-weight: bold; white-space: nowrap; }
+
+        /* 圖片樣式 */
+        .img-box { width: 100%; border-radius: 8px; margin: 10px 0; overflow: hidden; }
+        .img-box img { width: 100%; display: block; }
+
+        /* 行李清單 & 記帳 */
+        .list-section { margin-bottom: 20px; }
+        .list-header { background: #e0e0e0; padding: 10px; border-radius: 8px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .list-items { padding: 10px; }
+        .check-item { display: flex; align-items: center; margin: 8px 0; }
+        input[type="checkbox"] { margin-right: 10px; width: 18px; height: 18px; }
+
+        /* 底部導覽 */
+        .navbar { position: fixed; bottom: 0; width: 100%; background: var(--white); display: flex; border-top: 1px solid #ddd; height: 60px; }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #7f8c8d; cursor: pointer; font-size: 12px; }
+        .nav-item.active { color: var(--accent); }
+        .nav-item i { font-size: 20px; margin-bottom: 3px; }
+
+        /* 記帳分頁專屬樣式 */
+        .expense-row { display: flex; justify-content: space-between; border-bottom: 1px dashed #ddd; padding: 8px 0; }
+        .total-box { background: var(--primary); color: white; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 15px; }
     </style>
 </head>
-<body class="pb-24">
+<body>
 
-    <header class="bg-white p-6 sticky top-0 z-20 shadow-sm">
-        <div class="flex justify-between items-end">
-            <div>
-                <h1 class="text-2xl font-bold text-slate-800">2026 Tokyo Trip</h1>
-                <p class="text-slate-500 text-sm">🏂 滑雪 | ⚾️ WBC 應援</p>
-            </div>
-            <div class="text-right">
-                <span class="text-xs bg-slate-100 px-2 py-1 rounded">2/27 - 3/8</span>
-            </div>
+<div class="header">
+    <h2 style="margin:0">TOKYO 2026 🏂⚾️</h2>
+</div>
+
+<div id="itinerary" class="tab-content active">
+    <div class="card">
+        <h3>2/27 (五) 入境 & 雪具</h3>
+        <div class="img-box"><img src="[attachment_3](attachment)" alt="上野站"></div>
+        <div class="time-item"><span class="time-label">12:35</span> 🛬 NRT 二航降落</div>
+        <div class="time-item"><span class="time-label">14:00</span> 🚄 Sky Liner 至上野站</div>
+        <div class="time-item"><span class="time-label">16:00</span> 🛍️ 小川町雪具街：選購雪衣褲 (都營新宿線 B5出口)</div>
+        <div class="time-item"><span class="time-label">19:42</span> 🚄 上野 → 越後湯沢 (上越新幹線)</div>
+    </div>
+
+    <div class="card">
+        <h3>2/28 (六) 岩原滑雪場</h3>
+        <div class="img-box"><img src="[attachment_2](attachment)" alt="岩原地圖"></div>
+        <p><strong>雪場亮點：</strong> 擁有超寬闊的練習斜坡，非常適合初學者與教練課練習。</p>
+        <div class="time-item"><span class="time-label">07:20</span> 🚕 民宿搭計程車 (早班車無接駁)</div>
+        <div class="time-item"><span class="time-label">08:30</span> 🏂 教練課開始</div>
+    </div>
+
+    <div class="card">
+        <h3>3/1-3/2 石打丸山</h3>
+        <div class="img-box"><img src="[attachment_0](attachment)" alt="石打丸山"></div>
+        <p><strong>雪場亮點：</strong> 擁有「友情之鐘」美景，夜間滑雪景色極佳，地形變化豐富。</p>
+    </div>
+
+    <div class="card">
+        <h3>3/3-3/4 敘敘苑 & Outlet</h3>
+        <div class="img-box"><img src="[attachment_1](attachment)" alt="敘敘苑"></div>
+        <p><strong>🍽️ 餐廳筆記：</strong> 敘敘苑目黑店建議必點「牛五花套餐」，窗外景觀極佳。</p>
+    </div>
+
+    <div class="card">
+        <h3>3/5-3/8 WBC 棒球盛事</h3>
+        <div class="img-box"><img src="[attachment_4](attachment)" alt="東京巨蛋"></div>
+        <p><strong>🏟️ 東京巨蛋攻略：</strong> 注意各場次開賽時間 (12:00/19:00)，可提前到周邊購買應援週邊。</p>
+    </div>
+</div>
+
+<div id="luggage" class="tab-content">
+    <h3>行李清單 (細項管理)</h3>
+    <div class="list-section">
+        <div class="list-header" onclick="toggle('boxA')">🧳 行李箱 A - 滑雪裝備 <i class="fas fa-chevron-down"></i></div>
+        <div id="boxA" class="list-items">
+            <div class="check-item"><input type="checkbox"> 雪衣/雪褲 (2/27購入後放入)</div>
+            <div class="check-item"><input type="checkbox"> 滑雪手套/毛帽</div>
+            <div class="check-item"><input type="checkbox"> 護具 (防摔褲/護膝)</div>
+            <div class="check-item"><input type="checkbox"> 雪鏡 (Goggles)</div>
         </div>
-    </header>
-
-    <nav class="flex bg-white border-b sticky top-[88px] z-20">
-        <button onclick="show('itinerary')" id="t-itinerary" class="flex-1 py-4 tab-active">行程軸</button>
-        <button onclick="show('packing')" id="t-packing" class="flex-1 py-4 text-gray-400">行李清單</button>
-        <button onclick="show('info')" id="t-info" class="flex-1 py-4 text-gray-400">工具箱</button>
-    </nav>
-
-    <main id="itinerary" class="p-4 space-y-8">
-        <section>
-            <h2 class="text-lg font-bold mb-3 flex items-center">🗓️ 2/27 (五) <span class="ml-auto text-sm font-normal text-blue-500">☁️ 8°C</span></h2>
-            <div class="card p-4 space-y-4">
-                <div class="flex"><span class="time">12:35</span> <p><span class="tag tag-trans">抵達</span> 成田二航 (星宇)</p></div>
-                <div class="flex"><span class="time">14:xx</span> <p><span class="tag tag-trans">交通</span> Skyliner 往上野</p></div>
-                <div class="flex border-l-4 border-amber-400 pl-3 ml-1"><p class="text-sm">⚠️ <b>行李分流：</b>兩個寄上野，兩個寄東新宿住福辦公室</p></div>
-                <div class="flex"><span class="time">下午</span> <p><span class="tag tag-food">購物</span> 小川町買雪衣褲</p></div>
-                <div class="flex"><span class="time">19:42</span> <p><span class="tag tag-trans">新幹線</span> 上野 → 越後湯沢</p></div>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="text-lg font-bold mb-3 flex items-center">🏂 2/28 - 3/2 滑雪日</h2>
-            <div class="card p-4 space-y-4">
-                <div class="flex"><span class="tag tag-game">2/28</span> <p>岩原滑雪場 (08:30 教練課)</p></div>
-                <div class="flex"><span class="tag tag-game">3/01</span> <p>石打丸山滑雪場</p></div>
-                <div class="flex"><span class="tag tag-game">3/02</span> <p>石打丸山滑雪場</p></div>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="text-lg font-bold mb-3">🗓️ 3/3 (二) 返回東京</h2>
-            <div class="card p-4 space-y-4">
-                <div class="flex"><span class="time">11:13</span> <p>新幹線回大宮 → 住福拿行李</p></div>
-                <div class="flex"><span class="time">14:30</span> <p><span class="tag tag-food">美食</span> 敘敘苑-目黑店</p></div>
-                <div class="flex"><span class="time">晚上</span> <p>原宿/涉谷逛街</p></div>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="text-lg font-bold mb-3">🗓️ 3/4 (三) 購物日</h2>
-            <div class="card p-4 space-y-4">
-                <div class="flex"><span class="time">09:55</span> <p>新宿巴士 → 御殿場 Outlet</p></div>
-                <div class="flex"><span class="time">19:00</span> <p><span class="tag tag-food">美食</span> 一心たん助 有樂町</p></div>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="text-lg font-bold mb-3">🏟️ 3/5 - 3/8 WBC 賽事</h2>
-            <div class="card p-4 space-y-4">
-                <div class="bg-blue-50 p-3 rounded-xl border border-blue-100">
-                    <p class="text-xs text-blue-600 font-bold mb-1">台灣隊賽程 @ 東京巨蛋</p>
-                    <ul class="text-sm space-y-2">
-                        <li>⚾ 3/5 12:00 vs 澳洲 (下午橫濱)</li>
-                        <li>⚾ 3/6 19:00 vs 日本 (白天豪德寺)</li>
-                        <li>⚾ 3/7 12:00 vs 捷克 (17:00 今半)</li>
-                        <li>⚾ 3/8 12:00 vs 南韓 (16:08 趕飛機)</li>
-                    </ul>
-                </div>
-                <div class="flex border-l-4 border-red-500 pl-3 ml-1">
-                    <p class="text-sm">⚠️ <b>3/8 撤退：</b>15:30 拿行李，16:08 新宿 NEX 往機場</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <main id="packing" class="hidden p-4">
-        <h2 class="text-xl font-bold mb-4">🧳 行李分流清單</h2>
-        <div class="space-y-4">
-            <div class="card p-4 border-l-8 border-blue-500">
-                <h3 class="font-bold mb-2">❄️ 滑雪隨身箱 (2個)</h3>
-                <ul id="l-snow" class="text-sm space-y-2 mb-4">
-                    <li>▫️ 護照/日幣/信用卡</li>
-                    <li>▫️ 發熱衣/厚雪襪</li>
-                </ul>
-                <select onchange="add('l-snow', this)" class="w-full p-2 border rounded text-sm bg-gray-50">
-                    <option value="">+ 快速加入品項</option>
-                    <option value="雪具 (小川町買)">雪具 (小川町買)</option>
-                    <option value="行動電源/充電線">行動電源/充電線</option>
-                    <option value="暖暖包">暖暖包</option>
-                </select>
-            </div>
-            <div class="card p-4 border-l-8 border-gray-400">
-                <h3 class="font-bold mb-2 text-gray-500">📦 東京寄存箱 (2個)</h3>
-                <ul id="l-tokyo" class="text-sm space-y-2 mb-4 text-gray-500">
-                    <li>▫️ WBC 應援球衣/大旗</li>
-                    <li>▫️ 東京換洗衣物</li>
-                </ul>
-                <select onchange="add('l-tokyo', this)" class="w-full p-2 border rounded text-sm bg-gray-50">
-                    <option value="">+ 快速加入品項</option>
-                    <option value="休閒鞋">休閒鞋</option>
-                    <option value="盥洗保養品">盥洗保養品</option>
-                    <option value="預留購物空間">預留購物空間</option>
-                </select>
-            </div>
+    </div>
+    <div class="list-section">
+        <div class="list-header" onclick="toggle('boxB')">🧳 行李箱 B - 日常衣物 <i class="fas fa-chevron-down"></i></div>
+        <div id="boxB" class="list-items" style="display:none">
+            <div class="check-item"><input type="checkbox"> WBC 應援球衣</div>
+            <div class="check-item"><input type="checkbox"> 發熱衣/發熱褲</div>
+            <div class="check-item"><input type="checkbox"> 換洗衣物 (5套)</div>
         </div>
-    </main>
-
-    <main id="info" class="hidden p-4 space-y-4">
-        <div class="card p-4">
-            <h3 class="font-bold border-b pb-2 mb-3">✈️ 航班 (星宇)</h3>
-            <p class="text-sm">去：2/27 08:25-12:35</p>
-            <p class="text-sm">回：3/08 20:10-23:20</p>
+    </div>
+    <div class="list-section">
+        <div class="list-header" onclick="toggle('boxC')">🧳 行李箱 C - 藥品與雜物 <i class="fas fa-chevron-down"></i></div>
+        <div id="boxC" class="list-items" style="display:none">
+            <div class="check-item"><input type="checkbox"> 酸痛貼布 (滑雪必備!)</div>
+            <div class="check-item"><input type="checkbox"> 感冒/常備藥</div>
+            <div class="check-item"><input type="checkbox"> 行動電源/轉接頭</div>
         </div>
-        <div class="card p-4">
-            <h3 class="font-bold border-b pb-2 mb-3">🏠 住宿資訊</h3>
-            <a href="https://maps.app.goo.gl/MtvtBreUZcNnmHLz6?g_st=ipc" class="block text-sm text-blue-600 mb-2 underline">越後湯沢：湯沢雪の宿</a>
-            <a href="https://maps.app.goo.gl/2i5pkaytycj5pyhu8?g_st=ipc" class="block text-sm text-blue-600 underline">東京：City Hideout</a>
+    </div>
+    <div class="list-section">
+        <div class="list-header" onclick="toggle('boxD')">🧳 行李箱 D - 戰利品預留空間 <i class="fas fa-chevron-down"></i></div>
+        <div id="boxD" class="list-items" style="display:none">
+            <div class="check-item"><input type="checkbox"> 預留半箱空間</div>
+            <div class="check-item"><input type="checkbox"> 摺疊旅行袋</div>
         </div>
-    </main>
+    </div>
+</div>
 
-    <script>
-        function show(id) {
-            document.querySelectorAll('main').forEach(m => m.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
-            document.querySelectorAll('nav button').forEach(b => {
-                b.classList.remove('tab-active');
-                b.classList.add('text-gray-400');
-            });
-            document.getElementById('t-' + id).classList.add('tab-active');
-            document.getElementById('t-' + id).classList.remove('text-gray-400');
-        }
-        function add(id, el) {
-            if(!el.value) return;
-            const li = document.createElement('li');
-            li.innerHTML = '▫️ ' + el.value;
-            document.getElementById(id).appendChild(li);
-            el.value = '';
-        }
-    </script>
+<div id="wallet" class="tab-content">
+    <div class="total-box">
+        <div>總預算支出預估</div>
+        <div style="font-size: 24px; font-weight: bold; margin-top: 10px;">¥ 250,000</div>
+    </div>
+    <div class="card">
+        <h3>固定支出</h3>
+        <div class="expense-row"><span>星宇航空來回</span><span>NT$ 18,500</span></div>
+        <div class="expense-row"><span>湯沢雪の宿 (5晚)</span><span>¥ 45,000</span></div>
+        <div class="expense-row"><span>WBC 門票 (4場)</span><span>¥ 32,000</span></div>
+    </div>
+    <div class="card">
+        <h3>每日餐費預估</h3>
+        <div class="expense-row"><span>3/3 敘敘苑</span><span>¥ 8,000</span></div>
+        <div class="expense-row"><span>3/4 一心たん助</span><span>¥ 7,000</span></div>
+        <div class="expense-row"><span>3/7 今半壽喜燒</span><span>¥ 12,000</span></div>
+    </div>
+</div>
+
+<div class="navbar">
+    <div class="nav-item active" onclick="showTab('itinerary', this)">
+        <i class="fas fa-map-marked-alt"></i> 行程
+    </div>
+    <div class="nav-item" onclick="showTab('luggage', this)">
+        <i class="fas fa-suitcase"></i> 行李
+    </div>
+    <div class="nav-item" onclick="showTab('wallet', this)">
+        <i class="fas fa-wallet"></i> 記帳
+    </div>
+</div>
+
+<script>
+    function showTab(tabId, el) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        el.classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function toggle(id) {
+        const target = document.getElementById(id);
+        target.style.display = target.style.display === 'none' ? 'block' : 'none';
+    }
+</script>
+
 </body>
 </html>
