@@ -3,254 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2026 東京極致手冊</title>
+    <title>東京 2026 極致手冊</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #2c3e50; --accent: #e67e22; --bg: #f4f7f6; --white: #ffffff; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; padding-bottom: 80px; }
-        .header { background: var(--primary); color: var(--white); padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; }
+        :root { 
+            --wabi-bg: #F2F0EB; 
+            --wabi-text: #4A4A48; 
+            --wabi-accent: #8C8279; 
+            --wabi-card: #FAF9F6;
+            --ski-blue: #E3F2FD;
+            --wbc-red: #FFF1F0;
+        }
+        body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; background: var(--wabi-bg); color: var(--wabi-text); margin: 0; padding-bottom: 80px; line-height: 1.6; }
+        .header { background: var(--wabi-accent); color: #fff; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 1000; letter-spacing: 2px; }
         
-        /* 每日行程切換器 */
-        .day-selector { display: flex; overflow-x: auto; background: var(--white); padding: 10px; gap: 10px; border-bottom: 1px solid #ddd; sticky; top: 55px; z-index: 99; }
-        .day-btn { padding: 8px 15px; background: #eee; border-radius: 20px; white-space: nowrap; font-size: 13px; cursor: pointer; border: none; }
-        .day-btn.active { background: var(--accent); color: white; }
-
-        .tab-content { display: none; padding: 15px; animation: fadeIn 0.3s; }
+        /* 導覽切換 */
+        .tab-content { display: none; padding: 15px; animation: fadeIn 0.4s; }
         .tab-content.active { display: block; }
-        .day-panel { display: none; }
-        .day-panel.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 卡片樣式 */
-        .card { background: var(--white); border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .img-box { width: 100%; border-radius: 8px; margin: 10px 0; overflow: hidden; background: #eee; }
-        .img-box img { width: 100%; display: block; }
-        .time-node { display: flex; gap: 10px; margin: 12px 0; border-left: 2px solid #ddd; padding-left: 15px; position: relative; }
-        .time-node::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
-        .time-val { font-weight: bold; color: var(--accent); font-size: 14px; }
+        /* 侘寂風行程卡片 */
+        .day-selector { display: flex; overflow-x: auto; background: var(--wabi-card); padding: 12px; gap: 10px; border-bottom: 1px solid #D1CDC7; position: sticky; top: 52px; z-index: 999; }
+        .day-btn { padding: 6px 16px; background: #E5E2DC; border-radius: 4px; white-space: nowrap; font-size: 13px; cursor: pointer; border: none; color: var(--wabi-text); }
+        .day-btn.active { background: var(--wabi-accent); color: white; }
+        
+        .card { background: var(--wabi-card); border-radius: 2px; padding: 18px; margin-bottom: 20px; border: 1px solid #D1CDC7; box-shadow: 2px 2px 10px rgba(0,0,0,0.02); }
+        .card h3 { margin-top: 0; border-bottom: 1px solid var(--wabi-accent); padding-bottom: 8px; font-weight: 500; font-size: 1.1rem; }
+        .info-tag { font-size: 12px; background: #E5E2DC; padding: 2px 8px; border-radius: 2px; margin-bottom: 10px; display: inline-block; }
 
-        /* 行李箱自定義 */
-        .editable-title { border: none; background: transparent; font-weight: bold; font-size: 1.1em; color: var(--primary); width: 80%; }
-        .add-option { display: flex; gap: 5px; margin-top: 10px; }
-        .add-option input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        /* 圖片與介紹 */
+        .img-box { width: 100%; border-radius: 2px; margin: 12px 0; overflow: hidden; border: 1px solid #D1CDC7; }
+        .img-box img { width: 100%; display: block; filter: sepia(10%); }
+        .desc-text { font-size: 0.9rem; color: #666; background: #fdfdfd; padding: 10px; border-left: 3px solid var(--wabi-accent); margin: 10px 0; }
 
-        /* 記帳樣式 */
-        .form-group { margin-bottom: 10px; }
-        .form-group label { display: block; font-size: 12px; color: #666; }
-        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .expense-item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; font-size: 14px; }
+        /* 行李寄放與記帳 */
+        .storage-fields { background: #f9f9f9; padding: 10px; margin-top: 10px; border: 1px dashed #ccc; font-size: 13px; }
+        .storage-fields input { width: 100%; border: none; background: transparent; border-bottom: 1px solid #eee; margin-bottom: 5px; outline: none; }
+        .expense-card { border-left: 4px solid var(--wabi-accent); padding-left: 15px; position: relative; }
+        .expense-icon { font-size: 1.2rem; color: var(--wabi-accent); margin-right: 8px; }
 
         /* 底部導覽 */
-        .navbar { position: fixed; bottom: 0; width: 100%; background: var(--white); display: flex; border-top: 1px solid #ddd; height: 65px; z-index: 1000; }
-        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #7f8c8d; font-size: 12px; }
-        .nav-item.active { color: var(--accent); }
+        .navbar { position: fixed; bottom: 0; width: 100%; background: var(--wabi-card); display: flex; border-top: 1px solid #D1CDC7; height: 65px; z-index: 1000; }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #A09B95; font-size: 11px; }
+        .nav-item.active { color: var(--wabi-accent); font-weight: bold; }
+        .nav-item i { font-size: 18px; margin-bottom: 4px; }
     </style>
 </head>
 <body>
 
-<div class="header"><h3>2026 東京旅遊 App</h3></div>
+<div class="header">TOKYO 2026 ・ 侘寂旅程</div>
 
 <div class="navbar">
-    <div class="nav-item active" onclick="switchMainTab('itinerary', this)"><i class="fas fa-calendar-alt"></i>行程</div>
-    <div class="nav-item" onclick="switchMainTab('luggage', this)"><i class="fas fa-suitcase"></i>行李</div>
-    <div class="nav-item" onclick="switchMainTab('wallet', this)"><i class="fas fa-yen-sign"></i>記帳</div>
+    <div class="nav-item active" onclick="showMainTab('itinerary', this)"><i class="fas fa-leaf"></i>行程</div>
+    <div class="nav-item" onclick="showMainTab('info', this)"><i class="fas fa-info-circle"></i>住宿班機</div>
+    <div class="nav-item" onclick="showMainTab('luggage', this)"><i class="fas fa-suitcase"></i>行李</div>
+    <div class="nav-item" onclick="showMainTab('wallet', this)"><i class="fas fa-coins"></i>記帳</div>
+</div>
+
+<div id="info" class="tab-content">
+    <div class="card">
+        <h3>✈️ 航班資訊 (星宇航空)</h3>
+        <p><strong>去程：2/27 (五)</strong><br>08:25 TPE (一航) → 12:35 NRT (二航)</p>
+        <p><strong>回程：3/8 (日)</strong><br>20:10 NRT (二航) → 23:20 TPE (一航)</p>
+    </div>
+    <div class="card">
+        <h3>🏠 住宿地點</h3>
+        <div class="info-tag">2/27 - 3/3 (越後湯沢)</div>
+        <p><strong>湯沢雪の宿</strong><br>滑雪場內 (Ski-in/Ski-out)</p>
+        <div class="info-tag">3/3 - 3/8 (東京市區)</div>
+        <p><strong>City Hideout (シティハイドアウト)</strong><br>位於東新宿附近，便利性極高</p>
+    </div>
 </div>
 
 <div id="itinerary" class="tab-content active">
-    <div class="day-selector" id="daySelector">
-        <button class="day-btn active" onclick="switchDay(1)">2/27</button>
-        <button class="day-btn" onclick="switchDay(2)">2/28</button>
-        <button class="day-btn" onclick="switchDay(3)">3/1</button>
-        <button class="day-btn" onclick="switchDay(4)">3/2</button>
-        <button class="day-btn" onclick="switchDay(5)">3/3</button>
-        <button class="day-btn" onclick="switchDay(6)">3/4</button>
-        <button class="day-btn" onclick="switchDay(7)">3/5</button>
-        <button class="day-btn" onclick="switchDay(8)">3/6</button>
-        <button class="day-btn" onclick="switchDay(9)">3/7</button>
-        <button class="day-btn" onclick="switchDay(10)">3/8</button>
+    <div class="day-selector">
+        <button class="day-btn active" onclick="showDay(1)">2/27</button>
+        <button class="day-btn" onclick="showDay(2)">2/28</button>
+        <button class="day-btn" onclick="showDay(3)">3/1</button>
+        <button class="day-btn" onclick="showDay(4)">3/2</button>
+        <button class="day-btn" onclick="showDay(5)">3/3</button>
+        <button class="day-btn" onclick="showDay(6)">3/4</button>
+        <button class="day-btn" onclick="showDay(7)">3/5</button>
+        <button class="day-btn" onclick="showDay(8)">3/6</button>
+        <button class="day-btn" onclick="showDay(9)">3/7</button>
+        <button class="day-btn" onclick="showDay(10)">3/8</button>
     </div>
 
-    <div id="day1" class="day-panel active">
+    <div id="day1" class="day-panel" style="display:block;">
         <div class="card">
-            <h3>2/27 (五) 入境與雪具準備</h3>
-            <div class="time-node">
-                <div class="time-val">12:35</div>
-                <div>🛬 抵達成田機場二航 (星宇 JX800)</div>
-            </div>
-            <div class="time-node">
-                <div class="time-val">14:02</div>
-                <div>🚄 搭乘 SkyLiner 往京成上野</div>
-            </div>
-            <div class="time-node">
-                <div class="time-val">15:30</div>
-                <div>🛅 <b>關鍵任務：</b>行李分流寄放 (上野站/住福辦公室)</div>
-            </div>
-            <div class="time-node">
-                <div class="time-val">16:30</div>
-                <div>🛍️ 小川町雪具街選購雪衣雪褲 (B5出口)</div>
-            </div>
-            <div class="time-node">
-                <div class="time-val">19:42</div>
-                <div>🚄 上野新幹線站發車 → 越後湯沢</div>
-            </div>
+            <h3>2/27 入境與雪具準備</h3>
+            <p>🚄 <strong>Skyliner：</strong> 建議搭乘 14:02 或 14:22 班次，直達京成上野站。</p>
+            <p>🛍️ <strong>小川町：</strong> 搭乘「都營新宿線」至 B5 出口，雪具街購買雪衣褲。</p>
+            <p>🚅 <strong>新幹線：</strong> 19:42 上野站發車，20:55 抵達越後湯沢。</p>
         </div>
     </div>
 
-    <div id="day2" class="day-panel">
-        <div class="card">
-            <h3>2/28 (六) 岩原滑雪首日</h3>
-            <div class="img-box"><img src="http://googleusercontent.com/image_collection/image_retrieval/7436371898079008275_0"></div>
-            <div class="time-node">
-                <div class="time-val">07:20</div>
-                <div>🚕 搭計程車前往岩原滑雪場 (接駁車尚未開始)</div>
-            </div>
-            <div class="time-node">
-                <div class="time-val">08:30</div>
-                <div>🏂 7小時教練課開始 (午休1小時)</div>
-            </div>
+    <div id="day2" class="day-panel" style="display:none;">
+        <div class="card" style="background:var(--ski-blue)">
+            <h3>2/28 岩原滑雪場 🏂</h3>
+            <div class="img-box"><img src="http://googleusercontent.com/image_collection/image_retrieval/7436371898079008275_1"></div>
+            <div class="desc-text"><strong>路線介紹：</strong>岩原以極寬的緩坡聞名，適合新手。教練課 08:30 開始。</div>
+            <p>🚕 <strong>交通：</strong> 07:20 民宿搭計程車 (接駁車尚未開始運作)。</p>
         </div>
     </div>
-    
-    <div id="day3" class="day-panel"><div class="card"><h3>3/1 (日) 石打丸山滑雪</h3><p>全日滑雪，探索友情之鐘觀景台。</p></div></div>
-    <div id="day7" class="day-panel">
+
+    <div id="day3" class="day-panel" style="display:none;">
+        <div class="card" style="background:var(--ski-blue)">
+            <h3>3/1 石打丸山 🏂</h3>
+            <div class="img-box"><img src="http://googleusercontent.com/image_collection/image_retrieval/6714783242738162096_0"></div>
+            <div class="desc-text"><strong>路線介紹：</strong>石打丸山擁有23條雪道，推薦去「友情之鐘」景點拍照。</div>
+        </div>
+    </div>
+
+    <div id="day4" class="day-panel" style="display:none;">
+        <div class="card" style="background:var(--ski-blue)">
+            <h3>3/2 石打丸山 (Day 2)</h3>
+            <p>全日滑雪，可嘗試不同的雪道，晚間可步行至滑雪場附近的溫泉放鬆。</p>
+        </div>
+    </div>
+
+    <div id="day5" class="day-panel" style="display:none;">
         <div class="card">
-            <h3>3/5 (四) WBC 台灣 vs 澳洲</h3>
+            <h3>3/3 返回東京 & 敘敘苑</h3>
+            <p>🚄 <strong>新幹線：</strong> 11:13 越後湯沢 → 12:03 大宮。</p>
+            <p>🍽️ <strong>敘敘苑目黑店：</strong> 14:30 預約。交通：搭乘 JR 山手線至目黑站。</p>
+        </div>
+    </div>
+
+    <div id="day6" class="day-panel" style="display:none;">
+        <div class="card">
+            <h3>3/4 御殿場 Outlet</h3>
+            <p>🚌 <strong>交通：</strong> 09:55 新宿站搭乘高速巴士。</p>
+            <p>🍽️ <strong>晚餐：</strong> 19:00 一心たん助 (有樂町)。搭乘 JR 山手線至有樂町站。</p>
+        </div>
+    </div>
+
+    <div id="day7" class="day-panel" style="display:none;">
+        <div class="card" style="background:var(--wbc-red)">
+            <h3>3/5 WBC 台灣 vs 澳洲 ⚾</h3>
             <div class="img-box"><img src="http://googleusercontent.com/image_collection/image_retrieval/10433037536560321649_0"></div>
-            <div class="time-node"><div class="time-val">12:00</div><div>⚾ 東京巨蛋開賽</div></div>
-            <div class="time-node"><div class="time-val">晚上</div><div>🌃 橫濱散策 (赤煉瓦、麵包超人)</div></div>
+            <div class="desc-text"><strong>場館資訊：</strong>東京巨蛋 (Tokyo Dome)。最近車站：JR 水道橋站 / 地鐵後樂園站。</div>
+            <p>🌃 <strong>橫濱：</strong> 賽後搭乘 JR 京濱東北線至橫濱站。</p>
+        </div>
+    </div>
+
+    <div id="day8" class="day-panel" style="display:none;">
+        <div class="card" style="background:var(--wbc-red)">
+            <h3>3/6 WBC 台灣 vs 日本 ⚾</h3>
+            <p>🏟️ <strong>19:00 開賽：</strong> 宿命對決。建議提前至巨蛋週邊購買紀念品。</p>
+            <p>⛩️ <strong>世田谷散策：</strong> 豪德寺 (貓寺)。交通：東急世田谷線 宮之坂站。</p>
+        </div>
+    </div>
+
+    <div id="day9" class="day-panel" style="display:none;">
+        <div class="card" style="background:var(--wbc-red)">
+            <h3>3/7 WBC 台灣 vs 捷克 ⚾</h3>
+            <p>⛩️ <strong>東京大神宮：</strong> 從巨蛋步行 16 分鐘可抵達。</p>
+            <p>🍽️ <strong>今半壽喜燒：</strong> 17:00 新宿第一大樓。交通：地鐵都廳前站或新宿西口站。</p>
+        </div>
+    </div>
+
+    <div id="day10" class="day-panel" style="display:none;">
+        <div class="card">
+            <h3>3/8 WBC 台韓大戰 & 回國 ✈️</h3>
+            <p>🏟️ <strong>12:00 開賽：</strong> 經典對戰。</p>
+            <p>🚄 <strong>成田特快：</strong> 16:08 新宿站發車，預計 17:25 抵達機場。</p>
         </div>
     </div>
 </div>
 
 <div id="luggage" class="tab-content">
-    <div id="bagContainer">
-        </div>
-    <button onclick="addNewBag()" style="width:100%; padding:15px; border:2px dashed #ccc; border-radius:12px; background:none; color:#666;">+ 新增行李箱</button>
+    <div id="bagContainer"></div>
+    <button onclick="addNewBag()" style="width:100%; padding:15px; border:1px solid var(--wabi-accent); background:none; color:var(--wabi-accent);">+ 新增行李箱</button>
 </div>
 
 <div id="wallet" class="tab-content">
     <div class="card">
-        <h3>新增消費</h3>
-        <div class="form-group"><label>日期</label><input type="date" id="expDate"></div>
-        <div class="form-group"><label>項目</label><input type="text" id="expTitle" placeholder="例如：敘敘苑"></div>
-        <div class="form-group"><label>金額</label><input type="number" id="expAmount"></div>
-        <div class="form-group">
-            <label>分類與幣別</label>
-            <div style="display:flex; gap:5px;">
-                <select id="expCat"><option>飲食</option><option>交通</option><option>購物</option><option>門票</option></select>
-                <select id="expCurr"><option>JPY (¥)</option><option>TWD ($)</option></select>
-            </div>
+        <h3><i class="fas fa-plus-circle expense-icon"></i>新增帳目</h3>
+        <div style="margin-bottom:10px;">
+            <input type="date" id="expDate" style="width:100%; padding:10px; border:1px solid #ddd; margin-bottom:5px;">
+            <input type="text" id="expTitle" placeholder="項目 (例: 壽喜燒)" style="width:100%; padding:10px; border:1px solid #ddd; margin-bottom:5px;">
+            <input type="number" id="expAmount" placeholder="金額" style="width:100%; padding:10px; border:1px solid #ddd;">
         </div>
-        <button onclick="addExpense()" style="width:100%; padding:12px; background:var(--accent); color:white; border:none; border-radius:8px; font-weight:bold;">儲存帳目</button>
+        <button onclick="addExpense()" style="width:100%; padding:12px; background:var(--wabi-accent); color:white; border:none; border-radius:4px;">儲存紀錄</button>
     </div>
-
-    <div class="card">
-        <h3>消費歷史</h3>
-        <div id="expenseList"></div>
-        <div style="text-align:right; margin-top:10px; font-weight:bold; border-top:1px solid #eee; padding-top:10px;">
-            目前紀錄總計: <span id="totalDisplay">0</span> (JPY)
-        </div>
-    </div>
+    <div id="expenseList"></div>
 </div>
 
 <script>
-    // --- 基礎切換邏輯 ---
-    function switchMainTab(id, el) {
+    // 主要切換功能
+    function showMainTab(id, el) {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         el.classList.add('active');
     }
 
-    function switchDay(day) {
-        document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+    function showDay(day) {
+        document.querySelectorAll('.day-panel').forEach(p => p.style.display = 'none');
         document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-        const target = document.getElementById('day' + day);
-        if(target) target.classList.add('active');
+        document.getElementById('day' + day).style.display = 'block';
         event.target.classList.add('active');
     }
 
-    // --- 行李管理 (LocalStorage) ---
-    let bags = JSON.parse(localStorage.getItem('tokyo_bags')) || [
-        { name: "行李箱 A (滑雪)", items: ["雪衣", "雪具"] },
-        { name: "行李箱 B (應援)", items: ["球衣", "加油棒"] }
+    // 行李箱管理
+    let bags = JSON.parse(localStorage.getItem('bags_v2')) || [
+        { name: "行李箱 A", store: "上野站", date: "2/27", cost: "¥700", items: ["滑雪衣"] }
     ];
 
     function renderBags() {
         const container = document.getElementById('bagContainer');
         container.innerHTML = '';
-        bags.forEach((bag, bIdx) => {
-            let itemHtml = bag.items.map((it, iIdx) => `
-                <div class="check-item" style="display:flex; align-items:center; margin:5px 0;">
-                    <input type="checkbox"> <span>${it}</span>
-                    <i class="fas fa-times" style="margin-left:auto; color:#ccc;" onclick="removeItem(${bIdx}, ${iIdx})"></i>
-                </div>
-            `).join('');
-            
+        bags.forEach((bag, idx) => {
             container.innerHTML += `
                 <div class="card">
-                    <input class="editable-title" value="${bag.name}" onchange="updateBagName(${bIdx}, this.value)">
-                    <div id="items-${bIdx}">${itemHtml}</div>
-                    <div class="add-option">
-                        <input type="text" id="newIn-${bIdx}" placeholder="新增項目...">
-                        <button onclick="addItem(${bIdx})" style="background:var(--primary); color:white; border:none; border-radius:4px; padding:0 10px;">+</button>
+                    <input style="border:none; font-weight:bold; width:80%;" value="${bag.name}" onchange="bags[${idx}].name=this.value; saveBags()">
+                    <div class="storage-fields">
+                        📍 寄放地點：<input value="${bag.store}" placeholder="輸入地點" onchange="bags[${idx}].store=this.value; saveBags()">
+                        📅 寄放日期：<input value="${bag.date}" placeholder="輸入日期" onchange="bags[${idx}].date=this.value; saveBags()">
+                        💰 預計費用：<input value="${bag.cost}" placeholder="輸入費用" onchange="bags[${idx}].cost=this.value; saveBags()">
                     </div>
                 </div>`;
         });
-        localStorage.setItem('tokyo_bags', JSON.stringify(bags));
     }
 
-    function updateBagName(idx, val) { bags[idx].name = val; renderBags(); }
-    function addNewBag() { bags.push({name: "新行李箱", items: []}); renderBags(); }
-    function addItem(idx) {
-        let input = document.getElementById(`newIn-${idx}`);
-        if(input.value) { bags[idx].items.push(input.value); input.value = ''; renderBags(); }
-    }
-    function removeItem(bIdx, iIdx) { bags[bIdx].items.splice(iIdx, 1); renderBags(); }
+    function addNewBag() { bags.push({name:"新行李箱", store:"", date:"", cost:"", items:[]}); renderBags(); saveBags(); }
+    function saveBags() { localStorage.setItem('bags_v2', JSON.stringify(bags)); }
 
-    // --- 記帳管理 (LocalStorage) ---
-    let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
-
+    // 記帳管理
+    let expenses = JSON.parse(localStorage.getItem('exp_v2')) || [];
     function addExpense() {
-        const item = {
-            date: document.getElementById('expDate').value,
-            title: document.getElementById('expTitle').value,
-            amount: document.getElementById('expAmount').value,
-            cat: document.getElementById('expCat').value,
-            curr: document.getElementById('expCurr').value
-        };
-        if(!item.amount || !item.title) return alert("請輸入項目與金額");
-        expenses.push(item);
+        const item = { date: document.getElementById('expDate').value, title: document.getElementById('expTitle').value, amount: document.getElementById('expAmount').value };
+        if(!item.title || !item.amount) return;
+        expenses.unshift(item);
         renderExpenses();
-        // 清空輸入
-        document.getElementById('expTitle').value = '';
-        document.getElementById('expAmount').value = '';
+        localStorage.setItem('exp_v2', JSON.stringify(expenses));
     }
-
     function renderExpenses() {
         const list = document.getElementById('expenseList');
-        list.innerHTML = '';
-        let total = 0;
-        expenses.forEach((ex, idx) => {
-            list.innerHTML += `
-                <div class="expense-item">
-                    <div><b>${ex.title}</b><br><small>${ex.date} | ${ex.cat}</small></div>
-                    <div style="text-align:right">
-                        ${ex.curr === 'JPY (¥)' ? '¥' : '$'} ${ex.amount}
-                        <i class="fas fa-trash" style="margin-left:10px; color:#ddd;" onclick="deleteExpense(${idx})"></i>
-                    </div>
-                </div>`;
-            if(ex.curr.includes('JPY')) total += parseFloat(ex.amount);
-        });
-        document.getElementById('totalDisplay').innerText = total.toLocaleString();
-        localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
+        list.innerHTML = expenses.map(ex => `<div class="card expense-card"><div style="font-size:12px; color:#999;">${ex.date}</div><i class="fas fa-utensils expense-icon"></i> <b>${ex.title}</b> <span style="float:right">¥ ${ex.amount}</span></div>`).join('');
     }
-    function deleteExpense(idx) { expenses.splice(idx, 1); renderExpenses(); }
 
-    // 初始載入
+    // 初始化
     renderBags();
     renderExpenses();
-    document.getElementById('expDate').valueAsDate = new Date();
 </script>
 
 </body>
