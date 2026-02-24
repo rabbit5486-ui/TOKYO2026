@@ -7,84 +7,85 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { 
-            --ishi-blue: #002D56; --ishi-orange: #FF6B00; --ishi-bg: #F0F2F5;
-            --ishi-text: #1A1A1A; --white: #FFFFFF; --gray: #666;
+            --ishi-red: #E60012; --ishi-black: #1A1A1A; --ishi-bg: #FFFFFF;
+            --ishi-light: #F8F8F8; --ishi-gray: #707070; --white: #FFFFFF;
         }
-        body { font-family: "PingFang TC", "Heiti TC", sans-serif; background: var(--ishi-bg); color: var(--ishi-text); margin: 0; padding-bottom: 90px; }
-        .header { background: var(--ishi-blue); color: var(--white); padding: 15px; text-align: center; position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid var(--ishi-orange); box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; background: var(--ishi-bg); color: var(--ishi-black); margin: 0; padding-bottom: 90px; -webkit-font-smoothing: antialiased; }
+        
+        /* Header 頂部 */
+        .header { background: var(--ishi-black); color: var(--white); padding: 16px; text-align: center; position: sticky; top: 0; z-index: 1000; border-bottom: 4px solid var(--ishi-red); letter-spacing: 1px; }
         
         /* 導覽切換 */
         .tab-content { display: none; padding: 15px; animation: fadeIn 0.3s ease; }
         .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* 行程日期選擇器 */
-        .day-selector { display: flex; overflow-x: auto; background: var(--white); padding: 10px; gap: 8px; border-bottom: 1px solid #ddd; position: sticky; top: 56px; z-index: 999; }
-        .day-btn { padding: 8px 15px; background: #eee; border-radius: 20px; white-space: nowrap; font-size: 13px; border: none; font-weight: bold; color: var(--gray); }
-        .day-btn.active { background: var(--ishi-orange); color: white; }
+        .day-selector { display: flex; overflow-x: auto; background: var(--ishi-light); padding: 12px; gap: 8px; border-bottom: 1px solid #DDD; position: sticky; top: 56px; z-index: 999; }
+        .day-btn { padding: 8px 16px; background: var(--white); border: 1px solid #CCC; border-radius: 4px; white-space: nowrap; font-size: 13px; font-weight: bold; color: var(--ishi-black); }
+        .day-btn.active { background: var(--ishi-red); color: white; border-color: var(--ishi-red); }
 
-        /* 卡片設計 */
-        .card { background: var(--white); border-radius: 12px; padding: 18px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: relative; overflow: hidden; }
-        .card::before { content: ''; position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: var(--ishi-blue); }
-        .card h3 { margin: 0 0 12px 0; color: var(--ishi-blue); font-size: 1.15rem; display: flex; align-items: center; }
-        .card h3 i { margin-right: 10px; color: var(--ishi-orange); }
+        /* 卡片設計 - 石打丸山簡約白底風 */
+        .card { background: var(--white); border: 1px solid #EAEAEA; border-radius: 4px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .card h3 { margin: 0 0 15px 0; color: var(--ishi-black); font-size: 1.2rem; display: flex; align-items: center; border-left: 4px solid var(--ishi-red); padding-left: 12px; }
+        .card h3 i { margin-right: 8px; color: var(--ishi-red); font-size: 1rem; }
 
         /* 詳細行程節點 */
-        .node { position: relative; padding-left: 28px; margin-bottom: 18px; border-left: 2px dashed #cbd5e0; }
-        .node::before { content: ''; position: absolute; left: -7px; top: 2px; width: 12px; height: 12px; background: var(--ishi-orange); border-radius: 50%; border: 2px solid white; }
-        .time { font-weight: 800; color: var(--ishi-blue); display: block; font-size: 0.95rem; margin-bottom: 2px; }
-        .loc-name { font-weight: bold; color: #2d3748; display: block; }
-        .desc { font-size: 0.88rem; color: #4a5568; line-height: 1.5; margin-top: 4px; }
-        .link-btn { display: inline-flex; align-items: center; background: #f7fafc; padding: 4px 8px; border-radius: 4px; text-decoration: none; color: #3182ce; font-size: 0.8rem; margin-top: 6px; border: 1px solid #e2e8f0; }
+        .node { position: relative; padding-left: 30px; margin-bottom: 20px; border-left: 1px solid #DDD; }
+        .node::before { content: ''; position: absolute; left: -5px; top: 2px; width: 9px; height: 9px; background: var(--ishi-red); border-radius: 50%; }
+        .time { font-weight: 800; color: var(--ishi-red); display: block; font-size: 0.9rem; margin-bottom: 4px; }
+        .loc-name { font-weight: bold; color: var(--ishi-black); display: block; font-size: 1.05rem; }
+        .desc { font-size: 0.9rem; color: var(--ishi-gray); line-height: 1.6; margin-top: 5px; }
+        .link-btn { display: inline-flex; align-items: center; color: var(--ishi-red); text-decoration: none; font-size: 0.85rem; margin-top: 8px; font-weight: bold; border-bottom: 1px solid var(--ishi-red); padding-bottom: 2px; }
+        .link-btn i { margin-right: 5px; }
 
-        /* 行李箱系統 */
-        .storage-info { background: #fffaf0; padding: 10px; border-radius: 8px; margin: 10px 0; font-size: 0.85rem; border: 1px solid #feebc8; }
-        .storage-info input { border: none; background: transparent; border-bottom: 1px solid #ed8936; width: 80px; text-align: center; }
-        .todo-list { margin-top: 12px; border-top: 1px solid #edf2f7; padding-top: 10px; }
-        .todo-item { display: flex; align-items: center; margin: 6px 0; font-size: 0.9rem; }
-        .todo-item input { width: 18px; height: 18px; margin-right: 10px; }
+        /* 行李箱與收納清單 */
+        .storage-info { background: #FFF5F5; padding: 12px; border: 1px solid #FFDADA; border-radius: 4px; margin: 10px 0; font-size: 0.85rem; }
+        .storage-info input { border: none; background: transparent; border-bottom: 1px solid #FBC2C2; width: 80px; text-align: center; color: var(--ishi-red); font-weight: bold; outline: none; }
+        .todo-item { display: flex; align-items: center; margin: 10px 0; font-size: 0.95rem; }
+        .todo-item input { width: 18px; height: 18px; margin-right: 12px; accent-color: var(--ishi-red); }
 
         /* 底部導覽 */
-        .navbar { position: fixed; bottom: 0; width: 100%; background: var(--ishi-blue); display: flex; height: 70px; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
-        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); font-size: 11px; text-decoration: none; }
-        .nav-item.active { color: var(--ishi-orange); font-weight: bold; }
-        .nav-item i { font-size: 20px; margin-bottom: 5px; }
+        .navbar { position: fixed; bottom: 0; width: 100%; background: var(--ishi-black); display: flex; height: 75px; z-index: 1000; }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #BBB; font-size: 11px; text-decoration: none; }
+        .nav-item.active { color: var(--white); font-weight: bold; }
+        .nav-item i { font-size: 22px; margin-bottom: 6px; }
+        .nav-item.active i { color: var(--ishi-red); }
 
-        /* 圖片容器 */
-        .img-container { width: 100%; border-radius: 8px; margin: 10px 0; overflow: hidden; border: 1px solid #e2e8f0; }
-        .img-container img { width: 100%; display: block; }
+        .tag-ski { background: #E60012; color: white; padding: 2px 6px; font-size: 10px; border-radius: 2px; vertical-align: middle; margin-left: 5px; }
+        .tag-wbc { background: #002D56; color: white; padding: 2px 6px; font-size: 10px; border-radius: 2px; vertical-align: middle; margin-left: 5px; }
     </style>
 </head>
 <body>
 
-<div class="header">2026越後湯沢·東京行</div>
+<div class="header">2026 越後湯沢・東京行</div>
 
 <div class="navbar">
-    <div class="nav-item active" onclick="showMainTab('info', this)"><i class="fas fa-home"></i>資訊首頁</div>
-    <div class="nav-item" onclick="showMainTab('itinerary', this)"><i class="fas fa-calendar-alt"></i>行程細節</div>
+    <div class="nav-item active" onclick="showMainTab('info', this)"><i class="fas fa-plane"></i>資訊首頁</div>
+    <div class="nav-item" onclick="showMainTab('itinerary', this)"><i class="fas fa-calendar-alt"></i>詳細行程</div>
     <div class="nav-item" onclick="showMainTab('luggage', this)"><i class="fas fa-suitcase"></i>行李收納</div>
-    <div class="nav-item" onclick="showMainTab('wallet', this)"><i class="fas fa-coins"></i>記帳預算</div>
+    <div class="nav-item" onclick="showMainTab('wallet', this)"><i class="fas fa-yen-sign"></i>預算記帳</div>
 </div>
 
 <div id="info" class="tab-content active">
     <div class="card">
-        <h3><i class="fas fa-plane"></i> 航班資訊 (星宇航空)</h3>
+        <h3><i class="fas fa-plane-departure"></i> 航班資訊 (星宇)</h3>
         <div class="node">
-            <span class="time">2/27 (五) 去程 JX800</span>
-            <span class="loc-name">台北 TPE (一航) 🛫 08:25 → 東京 NRT (二航) 🛬 12:35</span>
+            <span class="time">2/27 (五) JX800</span>
+            <span class="loc-name">TPE 台北 (一航) 08:25 → NRT 東京 (二航) 12:35</span>
         </div>
         <div class="node">
-            <span class="time">3/08 (日) 回程 JX801</span>
-            <span class="loc-name">東京 NRT (二航) 🛫 20:10 → 台北 TPE (一航) 🛬 23:20</span>
+            <span class="time">3/08 (日) JX801</span>
+            <span class="loc-name">NRT 東京 (二航) 20:10 → TPE 台北 (一航) 23:20</span>
         </div>
     </div>
     <div class="card">
-        <h3><i class="fas fa-bed"></i> 住宿資訊</h3>
-        <p><strong>2/27 - 3/03 越後湯沢</strong><br>湯沢雪の宿 (ハツカ石口旁, Ski-in/out)<br>
-        <a href="https://maps.app.goo.gl/MtvtBreUZcNnmHLz6" class="link-btn"><i class="fas fa-map-marker-alt"></i> Google Map</a></p>
-        <p><strong>3/03 - 3/08 東京市區</strong><br>City Hideout シティハイドアウト<br>
-        <span class="desc">東新宿站 B3 出口步 1-2 分 / 新大久保站 6-8 分</span><br>
-        <a href="https://maps.app.goo.gl/3S5E16W2yL3nFsh38" class="link-btn"><i class="fas fa-map-marker-alt"></i> Google Map</a></p>
+        <h3><i class="fas fa-hotel"></i> 住宿地點</h3>
+        <p><strong>2/27-3/3 (越後湯沢)</strong><br>湯沢雪の宿 (ハツカ石口旁)<br>
+        <a href="https://maps.app.goo.gl/tBmsq8Xn5kK99hB29" class="link-btn"><i class="fas fa-map-marked-alt"></i> 開啟地圖導航</a></p>
+        <p><strong>3/3-3/8 (東京市區)</strong><br>City Hideout シティハイドアウト<br>
+        <span class="desc">東新宿站 B3 出口步 1 分 / 新大久保站步 6 分</span><br>
+        <a href="https://maps.app.goo.gl/MtvtBreUZcNnmHLz6" class="link-btn"><i class="fas fa-map-marked-alt"></i> 開啟地圖導航</a></p>
     </div>
 </div>
 
@@ -95,106 +96,93 @@
         <button class="day-btn" onclick="showDay(3)">3/01 石打</button>
         <button class="day-btn" onclick="showDay(4)">3/02 石打</button>
         <button class="day-btn" onclick="showDay(5)">3/03 敘敘苑</button>
-        <button class="day-btn" onclick="showDay(6)">3/04 Outlet</button>
+        <button class="day-btn" onclick="showDay(6)">3/04 築地</button>
         <button class="day-btn" onclick="showDay(7)">3/05 WBC/橫濱</button>
-        <button class="day-btn" onclick="showDay(8)">3/06 WBC/豪德寺</button>
+        <button class="day-btn" onclick="showDay(8)">3/06 WBC/日枝</button>
         <button class="day-btn" onclick="showDay(9)">3/07 WBC/今半</button>
         <button class="day-btn" onclick="showDay(10)">3/08 WBC/歸賦</button>
     </div>
 
     <div id="day1" class="day-panel" style="display:block;">
         <div class="card">
-            <h3>2/27 入境日本與行李分流</h3>
-            <div class="node">
-                <span class="time">14:02 / 14:22</span>
-                <span class="loc-name">搭乘 Skyliner 往京成上野</span>
-                <span class="desc">根據入境通關速度選擇車次。抵達後先在車站寄放滑雪行李。</span>
-            </div>
-            <div class="node">
-                <span class="time">16:00</span>
-                <span class="loc-name">小川町雪具街 (都營新宿線 B5 出口)</span>
-                <span class="desc">集中採買雪衣、雪褲。一條街都是店，好逛好買。</span>
-            </div>
-            <div class="node">
-                <span class="time">19:42</span>
-                <span class="loc-name">上野站 → 越後湯沢 (上越新幹線)</span>
-                <span class="desc">回車站取行李，記得在車上買個便當。</span>
-            </div>
-            <div class="node">
-                <span class="time">21:30</span>
-                <span class="loc-name">民宿接駁車 (湯沢駅東口)</span>
-                <span class="desc">這是民宿最後一班接駁車，務必趕上。</span>
-            </div>
+            <h3>2/27 (五) 入境日本 <span class="tag-ski">越後湯沢</span></h3>
+            <div class="node"><span class="time">12:35</span><span class="loc-name">抵達成田機場二航</span><span class="desc">預計搭乘 14:02 或 14:22 之 Skyliner 前往京成上野。</span></div>
+            <div class="node"><span class="time">16:00</span><span class="loc-name">小川町雪具街 (都營新宿線 B5出口)</span><span class="desc">採買雪衣、雪褲。<br><a href="https://maps.app.goo.gl/9ZpC6" class="link-btn">地圖連結</a></span></div>
+            <div class="node"><span class="time">19:42</span><span class="loc-name">上野站發車 → 越後湯沢</span><span class="desc">新幹線抵達後，趕 21:30 民宿最後一班接駁車。</span></div>
         </div>
     </div>
 
     <div id="day2" class="day-panel" style="display:none;">
         <div class="card">
-            <h3>2/28 岩原滑雪場初體驗</h3>
-            <div class="img-container"><img src="http://googleusercontent.com/image_collection/image_retrieval/7436371898079008275_1"></div>
-            <div class="node">
-                <span class="time">07:20</span>
-                <span class="loc-name">計程車前往岩原</span>
-                <span class="desc">早班接駁車尚未開始，為了趕 08:30 的課必須搭小黃。</span>
-            </div>
-            <div class="node">
-                <span class="time">08:30 - 15:30</span>
-                <span class="loc-name">岩原教練課 (7小時)</span>
-                <span class="desc">岩原以超寬廣平坦的斜坡聞名，是新手練習的天堂。</span>
-            </div>
-            <div class="node">
-                <span class="time">17:00</span>
-                <span class="loc-name">接駁車回越後湯沢駅</span>
-                <span class="desc">於岩原 Resort Center 2 前搭乘。</span>
-            </div>
+            <h3>2/28 (六) 岩原滑雪場 <span class="tag-ski">教練課</span></h3>
+            <div class="node"><span class="time">07:20</span><span class="loc-name">搭計程車前往岩原</span><span class="desc">因為早班接駁尚未開始。</span></div>
+            <div class="node"><span class="time">08:30-15:30</span><span class="loc-name">岩原教練課 (7小時)</span><span class="desc">享受全日本最寬廣的緩斜坡。</span></div>
+            <div class="node"><span class="time">17:00</span><span class="loc-name">接駁車回越後湯沢駅</span><span class="desc">於岩原 Resort Center 2 前搭乘。</span></div>
+        </div>
+    </div>
+
+    <div id="day3" class="day-panel" style="display:none;">
+        <div class="card">
+            <h3>3/01 (日) 石打丸山 (Day 1)</h3>
+            <div class="node"><span class="time">09:55</span><span class="loc-name">ハツカ石口 → 中央 Center</span><span class="desc">搭接駁車租裝備 (2天)。</span></div>
+            <div class="node"><span class="time">10:30</span><span class="loc-name">石打丸山開滑</span><span class="desc">推薦：Sunrise Express 纜車。</span></div>
+        </div>
+    </div>
+
+    <div id="day6" class="day-panel" style="display:none;">
+        <div class="card">
+            <h3>3/04 (三) 築地市場 & Outlet</h3>
+            <div class="node"><span class="time">08:00</span><span class="loc-name">築地場外市場</span><span class="desc">必吃：玉子燒、海鮮丼、炙燒干貝。<br><a href="https://maps.app.goo.gl/G6LhM" class="link-btn">地圖連結</a></span></div>
+            <div class="node"><span class="time">09:55</span><span class="loc-name">高速巴士往御殿場</span><span class="desc">新宿站發車，預計 11:30 抵達。</span></div>
+            <div class="node"><span class="time">19:00</span><span class="loc-name">一心たん助 (有樂町)</span><span class="desc">牛舌吃到飽大餐。</span></div>
         </div>
     </div>
 
     <div id="day7" class="day-panel" style="display:none;">
         <div class="card">
-            <h3>3/05 WBC 台灣戰 & 橫濱詳細遊</h3>
-            <div class="node">
-                <span class="time">12:00</span>
-                <span class="loc-name">東京巨蛋 (WBC 台灣 vs 澳洲)</span>
-                <span class="desc">水道橋站下車，全台集氣！</span>
-            </div>
-            <div class="node">
-                <span class="time">17:30</span>
-                <span class="loc-name">橫濱紅磚倉庫 (橫濱站轉導)</span>
-                <span class="desc">百年建築改裝的文創商場，夜景極美。<br><a href="https://maps.app.goo.gl/橫濱紅磚倉庫連結" class="link-btn"><i class="fas fa-map"></i> Map</a></span>
-            </div>
-            <div class="node">
-                <span class="time">19:00</span>
-                <span class="loc-name">麵包超人博物館</span>
-                <span class="desc">即便沒進館，周邊商店與造型麵包也非常可愛。<br><a href="https://maps.app.goo.gl/麵包超人連結" class="link-btn"><i class="fas fa-map"></i> Map</a></span>
-            </div>
-            <div class="node">
-                <span class="time">20:30</span>
-                <span class="loc-name">橫濱地標塔 69F 展望台</span>
-                <span class="desc">俯瞰全日本最高等級的港灣夜景。</span>
-            </div>
+            <h3>3/05 (四) WBC 台灣戰 & 橫濱遊</h3>
+            <div class="node"><span class="time">12:00</span><span class="loc-name">東京巨蛋 (WBC 台灣 vs 澳洲)</span><span class="desc">水道橋站/後樂園站。</span></div>
+            <div class="node"><span class="time">17:30</span><span class="loc-name">橫濱紅磚倉庫</span><span class="desc">海港美景與文創商店。<br><a href="https://maps.app.goo.gl/YV9Xq" class="link-btn">地圖連結</a></span></div>
+            <div class="node"><span class="time">19:00</span><span class="loc-name">橫濱麵包超人博物館</span><span class="desc">必看造型麵包。<br><a href="https://maps.app.goo.gl/8XW6u" class="link-btn">地圖連結</a></span></div>
         </div>
     </div>
 
-    <div id="day3" class="day-panel" style="display:none;"><div class="card"><h3>3/01 石打丸山</h3><p>ハツカ石口 09:55 接駁車往中央 Center 租裝備。</p></div></div>
+    <div id="day8" class="day-panel" style="display:none;">
+        <div class="card">
+            <h3>3/06 (五) 日枝神社 & WBC 台日大戰</h3>
+            <div class="node"><span class="time">10:00</span><span class="loc-name">日枝神社</span><span class="desc">擁有震撼的山王鳥居與稻荷千本鳥居，求工作運極佳。<br><a href="https://maps.app.goo.gl/9P7vS" class="link-btn">地圖連結</a></span></div>
+            <div class="node"><span class="time">19:00</span><span class="loc-name">WBC 台灣 vs 日本</span><span class="desc">經典對決，提早進場。</span></div>
+        </div>
+    </div>
+
+    <div id="day9" class="day-panel" style="display:none;">
+        <div class="card">
+            <h3>3/07 (六) 東京大神宮 & 今半</h3>
+            <div class="node"><span class="time">10:00</span><span class="loc-name">東京大神宮</span><span class="desc">東京超靈驗的結緣神宮。<br><a href="https://maps.app.goo.gl/XqL8W" class="link-btn">地圖連結</a></span></div>
+            <div class="node"><span class="time">17:00</span><span class="loc-name">人形町今半 (新宿)</span><span class="desc">究極壽喜燒饗宴。</span></div>
+        </div>
+    </div>
+
+    <div id="day10" class="day-panel" style="display:none;">
+        <div class="card">
+            <h3>3/08 (日) WBC 台韓戰 & 歸賦</h3>
+            <div class="node"><span class="time">12:00</span><span class="loc-name">WBC 台灣 vs 韓國</span></div>
+            <div class="node"><span class="time">16:08</span><span class="loc-name">新宿 N'EX 往機場</span><span class="desc">抵達二航後辦理登機。</span></div>
+        </div>
+    </div>
 </div>
 
 <div id="luggage" class="tab-content">
     <div id="bagContainer"></div>
-    <button onclick="addNewBag()" style="width:100%; padding:15px; background:var(--ishi-orange); color:white; border:none; border-radius:12px; font-weight:bold;">+ 新增自定義行李箱</button>
+    <button onclick="addNewBag()" style="width:100%; padding:15px; background:var(--ishi-red); color:white; border:none; border-radius:4px; font-weight:bold;">+ 新增行李箱</button>
 </div>
 
 <div id="wallet" class="tab-content">
     <div class="card">
-        <h3><i class="fas fa-edit"></i> 新增花費</h3>
-        <div style="display:flex; gap:10px; margin-bottom:10px;">
-            <input type="text" id="expTitle" placeholder="項目" style="flex:2; padding:10px; border:1px solid #ddd; border-radius:8px;">
-            <input type="number" id="expAmount" placeholder="金額" style="flex:1; padding:10px; border:1px solid #ddd; border-radius:8px;">
-        </div>
-        <select id="expCat" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; margin-bottom:10px;">
-            <option>🍴 飲食</option><option>🚅 交通</option><option>🛍️ 購物</option><option>⚾ WBC 門票</option>
-        </select>
-        <button onclick="addExpense()" style="width:100%; padding:12px; background:var(--ishi-blue); color:white; border:none; border-radius:8px;">存入手機空間</button>
+        <h3><i class="fas fa-edit"></i> 記帳</h3>
+        <input type="text" id="expTitle" placeholder="項目" style="width:70%; padding:10px; margin-bottom:5px;">
+        <input type="number" id="expAmount" placeholder="金額" style="width:25%; padding:10px;">
+        <button onclick="addExpense()" style="width:100%; padding:12px; background:var(--ishi-black); color:white; border:none; width:100%; margin-top:10px;">儲存</button>
     </div>
     <div id="expenseList"></div>
 </div>
@@ -205,7 +193,6 @@
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         el.classList.add('active');
-        window.scrollTo(0,0);
     }
 
     function showDay(day) {
@@ -215,36 +202,35 @@
         event.target.classList.add('active');
     }
 
-    // 行李系統 (本地存儲)
-    let bags = JSON.parse(localStorage.getItem('ishi_bags_v3')) || [
-        { name: "行李箱 A (滑雪用)", store: "上野站", date: "2/27", cost: "700", items: ["雪衣褲", "護具", "保暖襪", "護目鏡"] }
+    let bags = JSON.parse(localStorage.getItem('ishi_bags_final')) || [
+        { name: "行李箱 A (滑雪用)", store: "上野站", date: "2/27", cost: "700", items: ["雪衣", "雪褲", "護具", "雪襪"] }
     ];
 
     function renderBags() {
         const container = document.getElementById('bagContainer');
         container.innerHTML = bags.map((bag, bIdx) => `
             <div class="card">
-                <h3><i class="fas fa-box"></i> <input value="${bag.name}" onchange="updateBag(${bIdx}, 'name', this.value)" style="border:none; color:var(--ishi-blue); font-weight:bold; font-size:1.1rem; width:80%;"></h3>
+                <h3><i class="fas fa-box"></i> <input value="${bag.name}" onchange="updateBag(${bIdx}, 'name', this.value)" style="border:none; color:var(--ishi-black); font-weight:bold; width:80%;"></h3>
                 <div class="storage-info">
-                    📍 寄放地：<input value="${bag.store}" onchange="updateBag(${bIdx}, 'store', this.value)"> | 
+                    📍 寄放：<input value="${bag.store}" onchange="updateBag(${bIdx}, 'store', this.value)"> | 
                     日期：<input value="${bag.date}" onchange="updateBag(${bIdx}, 'date', this.value)"> | 
-                    費：¥<input value="${bag.cost}" onchange="updateBag(${bIdx}, 'cost', this.value)">
+                    ¥：<input value="${bag.cost}" onchange="updateBag(${bIdx}, 'cost', this.value)">
                 </div>
-                <div class="todo-list">
+                <div style="margin-top:10px;">
                     ${bag.items.map((it, iIdx) => `
                         <div class="todo-item">
                             <input type="checkbox"> <span>${it}</span>
-                            <i class="fas fa-times" style="margin-left:auto; color:#ddd" onclick="removeItem(${bIdx}, ${iIdx})"></i>
+                            <i class="fas fa-times" style="margin-left:auto; color:#DDD" onclick="removeItem(${bIdx}, ${iIdx})"></i>
                         </div>
                     `).join('')}
                     <div style="display:flex; gap:5px; margin-top:10px;">
-                        <input type="text" id="newIt-${bIdx}" placeholder="新增收納項..." style="flex:1; padding:5px; border:1px solid #eee;">
-                        <button onclick="addItem(${bIdx})" style="background:var(--ishi-blue); color:white; border:none; padding:5px 10px; border-radius:4px;">+</button>
+                        <input type="text" id="newIt-${bIdx}" placeholder="新增項目..." style="flex:1; padding:5px; border:1px solid #EEE;">
+                        <button onclick="addItem(${bIdx})" style="background:var(--ishi-black); color:white; border:none; padding:5px 10px;">+</button>
                     </div>
                 </div>
             </div>
         `).join('');
-        localStorage.setItem('ishi_bags_v3', JSON.stringify(bags));
+        localStorage.setItem('ishi_bags_final', JSON.stringify(bags));
     }
 
     function updateBag(idx, key, val) { bags[idx][key] = val; renderBags(); }
@@ -255,28 +241,20 @@
     }
     function removeItem(bIdx, iIdx) { bags[bIdx].items.splice(iIdx, 1); renderBags(); }
 
-    // 記帳系統
-    let expenses = JSON.parse(localStorage.getItem('ishi_exp_v3')) || [];
+    let expenses = JSON.parse(localStorage.getItem('ishi_exp_final')) || [];
     function addExpense() {
         const title = document.getElementById('expTitle').value;
         const amount = document.getElementById('expAmount').value;
-        const cat = document.getElementById('expCat').value;
         if(title && amount) {
-            expenses.unshift({ title, amount, cat });
+            expenses.unshift({ title, amount });
             renderExpenses();
-            document.getElementById('expTitle').value = ''; 
-            document.getElementById('expAmount').value = '';
+            document.getElementById('expTitle').value = ''; document.getElementById('expAmount').value = '';
         }
     }
     function renderExpenses() {
         const list = document.getElementById('expenseList');
-        list.innerHTML = expenses.map(ex => `
-            <div class="card" style="padding:12px; border-top:none; border-left:4px solid var(--ishi-orange); display:flex; justify-content:space-between;">
-                <span><b>${ex.cat}</b> ${ex.title}</span>
-                <span style="color:var(--ishi-orange); font-weight:bold;">¥ ${parseInt(ex.amount).toLocaleString()}</span>
-            </div>
-        `).join('');
-        localStorage.setItem('ishi_exp_v3', JSON.stringify(expenses));
+        list.innerHTML = expenses.map(ex => `<div class="card" style="padding:10px; display:flex; justify-content:space-between;"><span>${ex.title}</span><span style="color:var(--ishi-red); font-weight:bold;">¥${ex.amount}</span></div>`).join('');
+        localStorage.setItem('ishi_exp_final', JSON.stringify(expenses));
     }
 
     renderBags(); renderExpenses();
